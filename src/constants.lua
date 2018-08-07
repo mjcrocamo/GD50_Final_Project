@@ -67,6 +67,7 @@ COLLIDABLE_TILES = {
     TILE_ID_GROUND
 }
 
+MUSIC = {'music-play1', 'music-play2'}
 --
 -- game object IDs
 --
@@ -77,6 +78,8 @@ STARFISH_IDS = {
 COIN_IDS = {
     1, 2, 3
 }
+
+BOMB = {4, 5, 6}
 
 CRATES = {
     1, 2, 3, 4

@@ -35,7 +35,7 @@ end
 
 function Tile:render()
     love.graphics.draw(gTextures['tiles'], gFrames['tilesets'][self.tileset][self.id],
-        (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
+        (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE + 2)
 
     -- tile top layer for graphical variety
     if self.topper then

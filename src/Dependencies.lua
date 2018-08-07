@@ -11,28 +11,26 @@ require 'src/Animation'
 require 'src/constants'
 require 'src/Entity'
 require 'src/GameObject'
-require 'src/Hitbox'
 require 'src/Player'
 require 'src/StateMachine'
 require 'src/Util'
 require 'src/Tile'
 require 'src/TileMap'
 require 'src/Animal'
+require 'src/bomb'
 
 require 'src/Level/LevelMaker'
 require 'src/Level/GameLevel'
 
 require 'src/states/BaseState'
 
-require 'src/states/entity/EntityIdleState'
-require 'src/states/entity/EntitySwimState'
-require 'src/states/entity/EntityChasingState'
-
-require 'src/states/entity/Parrot/ParrotIdleState'
-require 'src/states/entity/Parrot/ParrotFlyState'
+require 'src/states/entity/AnimalIdleState'
+require 'src/states/entity/AnimalMovingState'
+require 'src/states/entity/AnimalChasingState'
+require 'src/states/entity/BombIdleState'
+require 'src/states/entity/BombTriggeredState'
 
 require 'src/states/entity/player/PlayerIdleState'
-require 'src/states/entity/player/PlayerSwingSwordState'
 require 'src/states/entity/player/PlayerWalkingState'
 require 'src/states/entity/player/PlayerJumpState'
 require 'src/states/entity/player/PlayerFallingState'
@@ -45,7 +43,10 @@ require 'src/states/game/StartState'
 gSounds = {
     ['jump'] = love.audio.newSource('sounds/jump.wav'),
     ['death'] = love.audio.newSource('sounds/death.wav'),
-    ['music'] = love.audio.newSource('sounds/Blackmoor.wav'),
+    ['music-play1'] = love.audio.newSource('sounds/Blackmoor.wav'),
+    ['music-play2'] = love.audio.newSource('sounds/ThemeofAgrual.mp3'),
+    ['music-play3'] = love.audio.newSource('sounds/underwater.ogg'),
+    ['music-game-over'] = love.audio.newSource('sounds/Beach_01.ogg'),
     ['powerup-reveal'] = love.audio.newSource('sounds/powerup-reveal.wav'),
     ['pickup'] = love.audio.newSource('sounds/pickup.wav'),
     ['empty-block'] = love.audio.newSource('sounds/empty-block.wav'),
@@ -54,7 +55,8 @@ gSounds = {
     ['sword'] = love.audio.newSource('sounds/sword.wav'),
     ['hit-enemy'] = love.audio.newSource('sounds/hit_enemy.wav'),
     ['hit-player'] = love.audio.newSource('sounds/hit_player.wav'),
-    ['running'] = love.audio.newSource('sounds/running.wav')
+    ['running'] = love.audio.newSource('sounds/running.wav'),
+    ['explosion'] = love.audio.newSource('sounds/explosion.mp3')
 }
 
 gTextures = {
@@ -69,8 +71,6 @@ gTextures = {
     ['coins-bombs'] = love.graphics.newImage('graphics/coins_and_bombs.png'),
     ['fireballs'] = love.graphics.newImage('graphics/fireballs.png'),
     ['hearts'] = love.graphics.newImage('graphics/hearts.png'),
-  --  ['parrot-idle'] = love.graphics.newImage('graphics/parrot-idle-spritesheet.png'),
-  --  ['parrot-fly'] = love.graphics.newImage('graphics/parrot-flying-spritesheet.png'),
     ['shark'] = love.graphics.newImage('graphics/sharks.png'),
     ['snapper'] = love.graphics.newImage('graphics/scaryfish.png'),
     ['treasure'] = love.graphics.newImage('graphics/chest_mimic.png'),
@@ -92,8 +92,6 @@ gFrames = {
     ['coins-bombs'] = GenerateQuads(gTextures['coins-bombs'], 16, 16),
     ['fireballs'] = GenerateQuads(gTextures['fireballs'], 16, 16),
     ['hearts'] = GenerateQuads(gTextures['hearts'], 16, 16),
-  --  ['parrot-idle'] = GenerateQuads(gTextures['parrot-idle'], 16, 16),
-  --  ['parrot-fly'] = GenerateQuads(gTextures['parrot-fly'], 16, 16),
     ['shark'] = GenerateQuads(gTextures['shark'], 16, 16),
     ['snapper'] = GenerateQuads(gTextures['snapper'], 17, 15),
     ['treasure'] = GenerateQuads(gTextures['treasure'], 16, 20),

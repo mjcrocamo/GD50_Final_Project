@@ -2,18 +2,22 @@
     GD50
     Final Project
 
+    Blue Beard's Adventure
+
     Author: Maggie Crocamo
     mjcrocamo@gmail.com
 
     This is a classic platformer designed game. The goal is to navigate various
     levels from a side perspective as blue beard the pirate. Jumping onto enemies
-    inflicts damage, using a sword inflicts damage and kills enemies,
-    and certain friends (like bluebeard's parrot) are able tp pick up extra objects
-    for points and health. The goal is to get to the end of the level, grab the key,
-    and unlock the treasure chest.
+    inflicts damage, triggering bombs will allow them to explode and kill enemies
+    within a certain radius (also can inflict damage on the player if they don't move)
+    The goal is to get to the end of the level, grab the key,
+    and unlock the treasure chest and pick up as many points as possible. Levels
+    are randomly generated and get longer and harder (more enemies likely to spawn etc).
 
+    Credit to GD50 Lecture Code (especially the Super Mario Bros)
+    
     Art pack:
-    https://www.gamedeveloperstudio.com/
     https://opengameart.org/
 
     Music:
@@ -44,9 +48,10 @@ function love.load()
     }
     gStateMachine:change('start')
 
-    gSounds['music']:setLooping(true)
-    gSounds['music']:setVolume(0.5)
-    gSounds['music']:play()
+    musicChoice = MUSIC[math.random(#MUSIC)]
+    gSounds[musicChoice]:setLooping(true)
+    gSounds[musicChoice]:setVolume(0.5)
+    gSounds[musicChoice]:play()
 
     love.keyboard.keysPressed = {}
 end

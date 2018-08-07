@@ -1,11 +1,9 @@
 --[[
     GD50
-    Super Mario Bros. Remake
+    Final Project
 
     -- LevelMaker Class --
 
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
 ]]
 
 LevelMaker = Class{}
@@ -44,8 +42,8 @@ function LevelMaker.generate(width, height)
 
         -- chance to just be emptiness, make sure the first 2 aren't empty
         -- so our character will always spawn on ground
-        if math.random(7) == 1 and x ~= 1 and x ~= 0 and x ~= 2 and x ~= (widthlevel - 5)
-        and x ~= (widthlevel/ 2) then
+        if math.random(7) == 1 and x ~= 1 and x ~= 0 and x ~= 2
+        and  x ~= (widthlevel/ 2) and x ~= (widthlevel - 5) then
             for y = 7, height do
                 table.insert(tiles[y],
                     Tile(x, y, tileID, nil, tileset, topperset))
@@ -62,7 +60,7 @@ function LevelMaker.generate(width, height)
             end
 
             -- chance to generate a pillar
-            if math.random(8) == 1 and x ~= (widthlevel - 5) and x ~= (widthlevel/ 2) then
+            if math.random(8) == 1 then
                 blockHeight = 2
 
                 -- chance to generate coral on pillar
@@ -89,7 +87,7 @@ function LevelMaker.generate(width, height)
                       GameObject {
                           texture = 'keys',
                           x = (widthlevel/ 2) * TILE_SIZE,
-                          y = (6 - 1) * TILE_SIZE,
+                          y = (4 - 1) * TILE_SIZE,
                           width = 16,
                           height = 16,
 
@@ -139,6 +137,35 @@ function LevelMaker.generate(width, height)
 
             -- chance to generate corals or keys (one key)
             elseif math.random(8) == 1 then
+
+              if not keyflag then
+                table.insert(objects,
+
+                    -- generate key
+                    GameObject {
+                        texture = 'keys',
+                        x = (widthlevel/ 2) * TILE_SIZE,
+                        y = (6 - 1) * TILE_SIZE,
+                        width = 16,
+                        height = 16,
+
+                        -- make it a random variant of key
+                        frame = math.random(1,4),
+                        collidable = true,
+                        consumable = true,
+                        hit = false,
+                        solid = false,
+
+                        -- has its own function when consumed
+                        onConsume = function(player, object)
+                            gSounds['pickup']:play()
+                            keygrabbed = true
+                        end
+                    }
+                )
+                keyflag = true
+              end
+
                 table.insert(objects,
                     GameObject {
                         texture = 'coral',
@@ -172,34 +199,6 @@ function LevelMaker.generate(width, height)
                       end
                   }
               )
-            end
-
-            if not keyflag then
-              table.insert(objects,
-
-                  -- generate key
-                  GameObject {
-                      texture = 'keys',
-                      x = (widthlevel/ 2) * TILE_SIZE,
-                      y = (6 - 1) * TILE_SIZE,
-                      width = 16,
-                      height = 16,
-
-                      -- make it a random variant of key
-                      frame = math.random(1,4),
-                      collidable = true,
-                      consumable = true,
-                      hit = false,
-                      solid = false,
-
-                      -- has its own function when consumed
-                      onConsume = function(player, object)
-                          gSounds['pickup']:play()
-                          keygrabbed = true
-                      end
-                  }
-              )
-              keyflag = true
             end
           end
 

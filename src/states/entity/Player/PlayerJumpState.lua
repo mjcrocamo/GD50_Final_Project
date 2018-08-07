@@ -2,6 +2,8 @@
     GD50
     Final Project
 
+    --PLayer Jump State --
+
 ]]
 
 PlayerJumpState = Class{__includes = BaseState}
@@ -84,7 +86,10 @@ function PlayerJumpState:update(dt)
 
           if self.player.health == 0 then
            gSounds['death']:play()
-           gStateMachine:change('start')
+           gStateMachine:change('game-over', {
+             score = self.player.score,
+             level = self.player.levelnumber
+           })
           end
 
         end

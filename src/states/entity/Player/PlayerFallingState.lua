@@ -1,6 +1,6 @@
 --[[
     GD50
-    Super Mario Bros. Remake
+    Final Project
 
     -- PlayerFallingState Class --
 
@@ -45,7 +45,10 @@ function PlayerFallingState:update(dt)
     -- go back to start if we fall below the map boundary
     elseif self.player.y > VIRTUAL_HEIGHT then
         gSounds['death']:play()
-        gStateMachine:change('start')
+        gStateMachine:change('game-over', {
+          score = self.player.score,
+          level = self.player.levelnumber
+        })
 
     -- check side collisions and reset position
     elseif love.keyboard.isDown('left') then

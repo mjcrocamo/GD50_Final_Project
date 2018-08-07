@@ -2,6 +2,8 @@
 --[[
     GD50
     Final Project
+
+    --PLayer Walking State -- 
 ]]
 
 PlayerWalkingState = Class{__includes = BaseState}
@@ -58,7 +60,10 @@ function PlayerWalkingState:update(dt)
 
             if self.player.health == 0 then
               gSounds['death']:play()
-              gStateMachine:change('start')
+              gStateMachine:change('game-over', {
+                score = self.player.score,
+                level = self.player.levelnumber
+              })
             end
 
         end
@@ -67,4 +72,5 @@ function PlayerWalkingState:update(dt)
     if love.keyboard.wasPressed('space') then
         self.player:changeState('jump')
     end
+
 end

@@ -12,7 +12,7 @@ function PlayState:init()
     self.camX = 0
     self.camY = 0
     self.levelcount = 1
-    self.level = LevelMaker.generate(math.min(100 * (self.levelcount),2000), 10)
+    self.level = LevelMaker.generate(math.min(100 * (self.levelcount),10000), 10)
     self.tileMap = self.level.tileMap
     self.background = math.random(2)
     self.backgroundX = 0
@@ -32,7 +32,7 @@ function PlayState:init()
             ['jump'] = function() return PlayerJumpState(self.player, self.gravityAmount) end,
             ['falling'] = function() return PlayerFallingState(self.player, self.gravityAmount) end,
             ['running'] = function() return PlayerRunningState(self.player, self.gravityAmount) end,
-            ['swing-sword'] = function() return PlayerSwingSwordState(self.player, self.dungeon) end
+            ['throw-bomb'] = function() return PlayerBombState(self.player, self.dungeon) end
 
         },
         map = self.tileMap,
@@ -223,7 +223,35 @@ function PlayState:spawnEnemies()
                       })
 
                     table.insert(self.level.entities, snapper)
-                    end
+
+
+                    local bomb
+                    bomb =
+                          Bomb {
+                              texture = 'coins-bombs',
+                              x = (x - 1) * TILE_SIZE,
+                              y = (y - 2) * TILE_SIZE + 2,
+                              width = 16,
+                              height = 16,
+                              animationMoving = Animation {
+                                  frames = {4, 5, 6},
+                                  interval = .2
+                              },
+                              animationIdle = Animation {
+                                  frames = {4},
+                                  interval = 1
+                              },
+                              stateMachine = StateMachine {
+                                  ['idle'] = function() return BombIdleState(self.tileMap, self.player, bomb) end,
+                                  ['trigger'] = function() return BombTriggeredState(self.tileMap, self.player, bomb) end
+                              }
+                          }
+
+                          bomb:changeState('idle')
+
+                      table.insert(self.level.entities, bomb)
+                  end
+
 
                     if math.random(math.max(30 - self.player.levelnumber, 5)) == 1 then
                       -- instantiate snail, declaring in advance so we can pass it into state machine

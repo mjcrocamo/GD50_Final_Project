@@ -1,11 +1,9 @@
 --[[
     GD50
-    Super Mario Bros. Remake
+    Final Project
 
     -- Player Class --
 
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
 ]]
 
 Player = Class{__includes = Entity}
@@ -14,10 +12,18 @@ function Player:init(def)
     Entity.init(self, def)
     self.score = 0
     self.levelnumber = 0
+    self.powerup = false
 end
 
 function Player:update(dt)
     Entity.update(self, dt)
+end
+
+function Player:nearProjectile(target)
+    local selfY, selfHeight = self.y + self.height / 2, self.height - self.height / 2
+
+    return not (self.x + self.width < target.x - 2 or self.x > target.x + target.width + 2 or
+                selfY + selfHeight < target.y - 2 or selfY > target.y + target.height + 2)
 end
 
 function Player:render()

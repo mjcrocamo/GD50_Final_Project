@@ -1,11 +1,9 @@
 --[[
     GD50
-    Super Mario Bros. Remake
+    Final Project
 
-    -- Snail Class --
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
+    --Animal Class --
+    (AI)
 ]]
 
 Animal = Class{__includes = Entity}

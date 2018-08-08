@@ -3,7 +3,7 @@
     GD50
     Final Project
 
-    --PLayer Walking State -- 
+    --PLayer Walking State --
 ]]
 
 PlayerWalkingState = Class{__includes = BaseState}
@@ -26,8 +26,9 @@ function PlayerWalkingState:update(dt)
     if not love.keyboard.isDown('left') and not love.keyboard.isDown('right') then
         self.player:changeState('idle')
     else
+      -- give more lee way so the character falls more naturally.
         local tileBottomLeft = self.player.map:pointToTile(self.player.x + 1, self.player.y + self.player.height)
-        local tileBottomRight = self.player.map:pointToTile(self.player.x + self.player.width - 1, self.player.y + self.player.height)
+        local tileBottomRight = self.player.map:pointToTile(self.player.x - 5 + self.player.width - 1, self.player.y + self.player.height)
 
         -- temporarily shift player down a pixel to test for game objects beneath
         self.player.y = self.player.y + 1

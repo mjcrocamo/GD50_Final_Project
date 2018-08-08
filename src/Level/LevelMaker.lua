@@ -108,7 +108,7 @@ function LevelMaker.generate(width, height)
                   keyflag = true
                 end
 
-                if math.random(20) == 1 then
+                if math.random(20) == 1 and x ~= (widthlevel - 5) * TILE_SIZE then
                   table.insert(objects,
                       GameObject {
                           texture = 'starfish',
@@ -179,7 +179,7 @@ function LevelMaker.generate(width, height)
                 )
 
 
-            if math.random(10) == 1 then
+            if math.random(10) == 1 and x ~= (widthlevel - 5) * TILE_SIZE then
               table.insert(objects,
                   GameObject {
                       texture = 'starfish',
@@ -203,7 +203,7 @@ function LevelMaker.generate(width, height)
           end
 
             -- chance to spawn a crate
-            if math.random(10) == 1 then
+            if math.random(10) == 1 and x ~= ((widthlevel - 5) * TILE_SIZE) then
                 table.insert(objects,
 
                     -- jump crate

@@ -2,7 +2,7 @@
     GD50
     Final project
 
-    --Player Idle State -- 
+    --Player Idle State --
 ]]
 
 PlayerIdleState = Class{__includes = BaseState}

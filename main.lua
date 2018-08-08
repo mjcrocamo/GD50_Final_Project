@@ -7,7 +7,7 @@
     Author: Maggie Crocamo
     mjcrocamo@gmail.com
 
-    This is a classic platformer designed game. The goal is to navigate various
+    This is a  platformer designed game. The goal is to navigate various
     levels from a side perspective as blue beard the pirate. Jumping onto enemies
     inflicts damage, triggering bombs will allow them to explode and kill enemies
     within a certain radius (also can inflict damage on the player if they don't move)
@@ -16,7 +16,7 @@
     are randomly generated and get longer and harder (more enemies likely to spawn etc).
 
     Credit to GD50 Lecture Code (especially the Super Mario Bros)
-    
+
     Art pack:
     https://opengameart.org/
 
